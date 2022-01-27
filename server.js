@@ -48,6 +48,25 @@ app.post('/api/notes', (req, res) => {
     return res.send("POST recieved")
 });
 
+app.delete('/api/notes/:id', (req, res) => {
+
+    let data =  fs.readFileSync(path.join(__dirname, '/db/db.json'), "utf8" , () => {});    
+    
+
+    data = JSON.parse(data);
+    
+    data = data.filter(datum => datum.id != req.params.id)
+    
+
+    data = JSON.stringify(data);
+    
+    
+    fs.writeFile(path.join(__dirname, '/db/db.json'), data, ()=>{});
+    
+
+    return res.send("POST recieved")
+});
+
 app.listen(PORT, () =>
     console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
